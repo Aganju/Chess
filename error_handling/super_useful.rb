@@ -18,6 +18,12 @@ class LessThanFiveError < StandardError
   end
 end
 
+class StringLengthError < StandardError
+  def initialize(msg = "String length is too short")
+    super
+  end
+end
+
 FRUITS = ["apple", "banana", "orange"]
 
 def reaction(maybe_fruit)
@@ -49,8 +55,9 @@ end
 # PHASE 4
 class BestFriend
   def initialize(name, yrs_known, fav_pastime)
-    @name = name
     raise LessThanFiveError if yrs_known < 5
+    raise StringLengthError if name.length == 0 || fav_pastime.length == 0
+    @name = name
     @yrs_known = yrs_known
     @fav_pastime = fav_pastime
   end
