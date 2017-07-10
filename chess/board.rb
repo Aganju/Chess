@@ -1,4 +1,5 @@
 require 'colorize'
+require_relative 'piece'
 
 class InvalidMove < StandardError
   def initialize(msg = "Invalid move, no piece at start or piece at end")
@@ -17,10 +18,10 @@ class Board
       @grid[1][i] = Piece.new("Pawn")
       @grid[6][i] = Piece.new("Pawn")
     end
-    @grid[0][0] = Piece.new("Castle")
-    @grid[0][7] = Piece.new("Castle")
-    @grid[7][0] = Piece.new("Castle")
-    @grid[7][7] = Piece.new("Castle")
+    @grid[0][0] = Piece.new("Rook")
+    @grid[0][7] = Piece.new("Rook")
+    @grid[7][0] = Piece.new("Rook")
+    @grid[7][7] = Piece.new("Rook")
 
     @grid[0][1] = Piece.new("Knight")
     @grid[0][6] = Piece.new("Knight")
@@ -37,6 +38,9 @@ class Board
 
     @grid[0][4] = Piece.new("King")
     @grid[7][4] = Piece.new("King")
+
+    8.times { |row| 8.times { |col| @grid[row][col] = Piece.new(nil) if self.empty?( [row, col] ) } }
+
   end
 
   def [](pos)
@@ -59,10 +63,8 @@ class Board
     self[start_pos] = nil
   end
 
-end
-
-class Piece
-  def initialize(type)
-    @type = type
+  def in_bounds(x, y)
+    x.between?(0, 7) && y.between?(0, 7)
   end
+
 end
