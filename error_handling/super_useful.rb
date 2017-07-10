@@ -1,6 +1,8 @@
 # PHASE 2
 def convert_to_int(str)
   Integer(str)
+rescue
+  return nil
 end
 
 # PHASE 3
