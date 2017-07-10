@@ -12,6 +12,12 @@ end
 class NotFruitError < StandardError
 end
 
+class LessThanFiveError < StandardError
+  def initialize(msg = "Years known is less than 5")
+    super
+  end
+end
+
 FRUITS = ["apple", "banana", "orange"]
 
 def reaction(maybe_fruit)
@@ -44,6 +50,7 @@ end
 class BestFriend
   def initialize(name, yrs_known, fav_pastime)
     @name = name
+    raise LessThanFiveError if yrs_known < 5
     @yrs_known = yrs_known
     @fav_pastime = fav_pastime
   end
