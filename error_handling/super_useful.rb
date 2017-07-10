@@ -6,13 +6,21 @@ rescue ArgumentError
 end
 
 # PHASE 3
+class CoffeeError < StandardError
+end
+
+class NotFruitError < StandardError
+end
+
 FRUITS = ["apple", "banana", "orange"]
 
 def reaction(maybe_fruit)
   if FRUITS.include? maybe_fruit
     puts "OMG, thanks so much for the #{maybe_fruit}!"
+  elsif maybe_fruit == "coffee"
+    raise CoffeeError
   else
-    raise StandardError
+    raise NotFruitError
   end
 end
 
@@ -23,9 +31,11 @@ def feed_me_a_fruit
     puts "Feed me a fruit! (Enter the name of a fruit:)"
     maybe_fruit = gets.chomp
     reaction(maybe_fruit)
-  rescue
-    puts "Not a fruit try again"
+  rescue CoffeeError
+    puts "Not a fruit but you gave a coffee you get to try again"
     retry
+  rescue NotFruitError
+    puts "Not a fruit"
   end
 
 end
