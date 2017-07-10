@@ -1,7 +1,7 @@
 # PHASE 2
 def convert_to_int(str)
   Integer(str)
-rescue
+rescue ArgumentError
   return nil
 end
 
