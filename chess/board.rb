@@ -18,26 +18,26 @@ class Board
       @grid[1][i] = Piece.new("Pawn")
       @grid[6][i] = Piece.new("Pawn")
     end
-    @grid[0][0] = Piece.new("Rook")
-    @grid[0][7] = Piece.new("Rook")
-    @grid[7][0] = Piece.new("Rook")
-    @grid[7][7] = Piece.new("Rook")
+    @grid[0][0] = Piece.new("Rook", self)
+    @grid[0][7] = Piece.new("Rook", self)
+    @grid[7][0] = Piece.new("Rook", self)
+    @grid[7][7] = Piece.new("Rook", self)
 
-    @grid[0][1] = Piece.new("Knight")
-    @grid[0][6] = Piece.new("Knight")
-    @grid[7][1] = Piece.new("Knight")
-    @grid[7][6] = Piece.new("Knight")
+    @grid[0][1] = Piece.new("Knight", self)
+    @grid[0][6] = Piece.new("Knight", self)
+    @grid[7][1] = Piece.new("Knight", self)
+    @grid[7][6] = Piece.new("Knight", self)
 
-    @grid[0][2] = Piece.new("Bishop")
-    @grid[0][5] = Piece.new("Bishop")
-    @grid[7][2] = Piece.new("Bishop")
-    @grid[7][5] = Piece.new("Bishop")
+    @grid[0][2] = Piece.new("Bishop", self)
+    @grid[0][5] = Piece.new("Bishop", self)
+    @grid[7][2] = Piece.new("Bishop", self)
+    @grid[7][5] = Piece.new("Bishop", self)
 
-    @grid[0][3] = Piece.new("Queen")
-    @grid[7][3] = Piece.new("Queen")
+    @grid[0][3] = Piece.new("Queen", self)
+    @grid[7][3] = Piece.new("Queen", self)
 
-    @grid[0][4] = Piece.new("King")
-    @grid[7][4] = Piece.new("King")
+    @grid[0][4] = Piece.new("King", self)
+    @grid[7][4] = Piece.new("King", self)
 
   end
 

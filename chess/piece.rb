@@ -1,7 +1,9 @@
 class Piece
-  attr_reader :type
-  def initialize(type)
-    @type = type
+  attr_reader :color :pos
+  def initialize(pos, color, board)
+    @pos = pos
+    @color = color
+    @board = board
   end
 
   def moves
