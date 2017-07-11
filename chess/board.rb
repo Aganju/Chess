@@ -15,29 +15,29 @@ class Board
 
   def place_pieces
     8.times do |i|
-      @grid[1][i] = Piece.new("Pawn")
-      @grid[6][i] = Piece.new("Pawn")
+      @grid[1][i] = Pawn.new([1][i], 'white', self)
+      @grid[6][i] = Pawn.new([6][i], 'black', self)
     end
-    @grid[0][0] = Piece.new("Rook", self)
-    @grid[0][7] = Piece.new("Rook", self)
-    @grid[7][0] = Piece.new("Rook", self)
-    @grid[7][7] = Piece.new("Rook", self)
+    @grid[0][0] = Rook.new([0, 0], 'white', self)
+    @grid[0][7] = Rook.new([0, 7], 'white', self)
+    @grid[7][0] = Rook.new([7, 0], 'black', self)
+    @grid[7][7] = Rook.new([7, 7], 'black', self)
 
-    @grid[0][1] = Piece.new("Knight", self)
-    @grid[0][6] = Piece.new("Knight", self)
-    @grid[7][1] = Piece.new("Knight", self)
-    @grid[7][6] = Piece.new("Knight", self)
+    @grid[0][1] = Knight.new([0, 1], 'white', self)
+    @grid[0][6] = Knight.new([0, 6], 'white', self)
+    @grid[7][1] = Knight.new([7, 1], 'black', self)
+    @grid[7][6] = Knight.new([7, 6], 'black', self)
 
-    @grid[0][2] = Piece.new("Bishop", self)
-    @grid[0][5] = Piece.new("Bishop", self)
-    @grid[7][2] = Piece.new("Bishop", self)
-    @grid[7][5] = Piece.new("Bishop", self)
+    @grid[0][2] = Bishop.new([0, 2], 'white', self)
+    @grid[0][5] = Bishop.new([0, 5], 'white', self)
+    @grid[7][2] = Bishop.new([7, 2], 'black', self)
+    @grid[7][5] = Bishop.new([7, 5], 'black', self)
 
-    @grid[0][3] = Piece.new("Queen", self)
-    @grid[7][3] = Piece.new("Queen", self)
+    @grid[0][3] = Queen.new([0, 3], 'white', self)
+    @grid[7][3] = Queen.new([7, 3], 'black', self)
 
-    @grid[0][4] = Piece.new("King", self)
-    @grid[7][4] = Piece.new("King", self)
+    @grid[0][4] = King.new([0, 4], 'white', self)
+    @grid[7][4] = King.new([7, 4], 'black', self)
 
   end
 
