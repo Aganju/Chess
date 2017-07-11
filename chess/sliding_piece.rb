@@ -32,7 +32,11 @@ module SlidingPiece
     case directions
     when "diagonal"
       DIAGONALS.each { |dir| all_moves << moves_in_dir(dir) }
-
+    when "straights"
+      STRAIGHTS.each { |dir| all_moves << moves_in_dir(dir) }
+    when "both"
+      all_moves = moves("diagonal") + moves("straights")
     end
+    all_moves
   end
 end
