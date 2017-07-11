@@ -14,29 +14,34 @@ module SlidingPiece
     [-1,0]
   ]
 
-  def moves_in_dir(dir)
-    x,y = dir
-    x += 1
-    y += 1
-    moves = []
-    while @board[[x,y]].class == NullPiece && @board.in_bounds(x,y)
-      moves << [x,y]
-      x += 1
-      y += 1
-    end
-    moves << [x,y] unless self.color == @board[[x,y]].color
-  end
-
-  def moves(directions)
+  def moves
     all_moves = []
-    case directions
-    when "diagonal"
-      DIAGONALS.each { |dir| all_moves << moves_in_dir(dir) }
+    case @directions
+    when "diagonals"
+      DIAGONALS.each { |dir| all_moves += moves_in_dir(dir) }
     when "straights"
-      STRAIGHTS.each { |dir| all_moves << moves_in_dir(dir) }
+      STRAIGHTS.each { |dir| all_moves += moves_in_dir(dir) }
     when "both"
-      all_moves = moves("diagonal") + moves("straights")
+      (DIAGONALS + STRAIGHTS).each { |dir| all_moves += moves_in_dir(dir) }
     end
     all_moves
   end
+
+private
+  def moves_in_dir(dir)
+    d_x,d_y = dir
+    x,y = pos
+    x += d_x
+    y += d_y
+    dir_moves = []
+    while @board.in_bounds(x,y) && @board[[x,y]].empty?
+      dir_moves << [x,y]
+      x += d_x
+      y += d_y
+    end
+    return dir_moves unless @board.in_bounds(x,y)
+    dir_moves << [x,y] unless self.color == @board[[x,y]].color
+    dir_moves
+  end
+
 end
