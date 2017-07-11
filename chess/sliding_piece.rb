@@ -1,26 +1,38 @@
 module SlidingPiece
 
-  diagonal = [
+  DIAGONALS = [
     [1,1],
-    []
-
+    [-1,1],
+    [1,-1],
+    [-1,-1]
   ]
 
+  STRAIGHTS = [
+    [0,1],
+    [1,0],
+    [0,-1],
+    [-1,0]
+  ]
 
-  
-
-
+  def moves_in_dir(dir)
+    x,y = dir
+    x += 1
+    y += 1
+    moves = []
+    while @board[[x,y]].class == NullPiece && @board.in_bounds(x,y)
+      moves << [x,y]
+      x += 1
+      y += 1
+    end
+    moves << [x,y] unless self.color == @board[[x,y]].color
+  end
 
   def moves(directions)
+    all_moves = []
     case directions
     when "diagonal"
-      n = -1
-      moves_array = []
-      until n == moves_array.length
-        n = moves_array.length
-        moves_array << moves
+      DIAGONALS.each { |dir| all_moves << moves_in_dir(dir) }
 
-      end
     end
   end
 end
