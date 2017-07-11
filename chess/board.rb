@@ -1,22 +1,23 @@
 require 'colorize'
-require_relative 'piece'
+require_relative 'pieces'
 
 class InvalidMove < StandardError
   def initialize(msg = "Invalid move, no piece at start or piece at end")
   end
 end
+
 class Board
 
 
   def initialize
-    @grid = Array.new(8) { Array.new(8) { Piece.new(nil) } }
+    @grid = Array.new(8) { Array.new(8) { NullPiece.instance } }
     place_pieces
   end
 
   def place_pieces
     8.times do |i|
-      @grid[1][i] = Pawn.new([1][i], 'white', self)
-      @grid[6][i] = Pawn.new([6][i], 'black', self)
+      @grid[1][i] = Pawn.new([1, i], 'white', self)
+      @grid[6][i] = Pawn.new([6, i], 'black', self)
     end
     @grid[0][0] = Rook.new([0, 0], 'white', self)
     @grid[0][7] = Rook.new([0, 7], 'white', self)
@@ -52,13 +53,36 @@ class Board
   end
 
   def empty?(pos)
-    self[pos].nil?
+    self[pos].empty?
+  end
+
+  def in_check?(color)
+    king_pos = []
+
+    @grid.each_with_index do |squares, index|
+      king_pos[0] = index
+      squares.each_with_index do |piece, col|
+        king_pos[1] = col
+        break if piece.to_s == 'King' && piece.color == color
+      end
+  
+      break if self[king_pos].to_s == 'King'
+    end
+
+    opposing_color = color == 'white' ? 'black' : 'white'
+
+    @grid.any? do |row|
+      row.any? { |piece| piece.moves.include?(king_pos) if piece.color == opposing_color }
+    end
+
   end
 
   def move_piece(start_pos, end_pos)
+
     raise InvalidMove if self.empty?(start_pos) || !self.empty?(end_pos)
     self[end_pos] = self[start_pos]
-    self[start_pos] = nil
+    self[end_pos].pos = end_pos
+    self[start_pos] = NullPiece.instance
   end
 
   def in_bounds(x, y)
