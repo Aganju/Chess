@@ -9,7 +9,7 @@ class Board
 
 
   def initialize
-    @grid = Array.new(8) { Array.new(8) }
+    @grid = Array.new(8) { Array.new(8) { Piece.new(nil) } }
     place_pieces
   end
 
@@ -38,8 +38,6 @@ class Board
 
     @grid[0][4] = Piece.new("King")
     @grid[7][4] = Piece.new("King")
-
-    8.times { |row| 8.times { |col| @grid[row][col] = Piece.new(nil) if self.empty?( [row, col] ) } }
 
   end
 

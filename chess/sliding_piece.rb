@@ -6,9 +6,8 @@ module SlidingPiece
 
   ]
 
-  horizontal = [
-    
-  ]
+
+  
 
 
 
