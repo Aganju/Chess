@@ -45,7 +45,10 @@ class Board
     dupped_board = Board.new
     @grid.each_with_index do |row, row_index|
       row.each_with_index do |piece, col_index|
-        dupped_board[[row_index, col_index]] = piece.dup unless piece.empty?
+        unless piece.empty?
+          dupped_board[[row_index, col_index]] = piece.class.new(
+          piece.pos, piece.color, dupped_board)
+        end
       end
     end
     dupped_board
@@ -86,12 +89,18 @@ class Board
 
   end
 
-  def move_piece(start_pos, end_pos)
-
-    raise InvalidMove if self.empty?(start_pos) || !self.empty?(end_pos)
+  def move_piece!(start_pos, end_pos)
     self[end_pos] = self[start_pos]
     self[end_pos].pos = end_pos
     self[start_pos] = NullPiece.instance
+  end
+
+  def move_piece(start_pos, end_pos)
+    if !self[start_pos].empty? self[start_pos].valid_moves.include?(end_pos)
+      self[end_pos] = self[start_pos]
+      self[end_pos].pos = end_pos
+      self[start_pos] = NullPiece.instance
+    end
   end
 
   def in_bounds(x, y)
