@@ -69,24 +69,24 @@ class Board
   end
 
   def in_check?(color)
-    king_pos = []
-
-    @grid.each_with_index do |squares, index|
-      king_pos[0] = index
-      squares.each_with_index do |piece, col|
-        king_pos[1] = col
-        break if piece.to_s == 'King' && piece.color == color
-      end
-
-      break if self[king_pos].to_s == 'King'
-    end
+    king = self.pieces(color).find { |piece| piece.to_s == 'King' }
 
     opposing_color = color == 'white' ? 'black' : 'white'
+    self.pieces(opposing_color).any? { |piece| piece.moves.include?(king.pos) }
+  end
 
-    @grid.any? do |row|
-      row.any? { |piece| piece.moves.include?(king_pos) if piece.color == opposing_color }
+  def pieces(color)
+    color_pieces = []
+    @grid.each do |row|
+      row.each do |piece|
+        color_pieces << piece if piece.color == color
+      end
     end
+    color_pieces
+  end
 
+  def checkmate?(color)
+    in_check?(color) && pieces(color).all? { |piece| piece.valid_moves.empty? }
   end
 
   def move_piece!(start_pos, end_pos)
@@ -96,10 +96,12 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    if !self[start_pos].empty? self[start_pos].valid_moves.include?(end_pos)
+    if self[start_pos].valid_moves.include?(end_pos)
       self[end_pos] = self[start_pos]
       self[end_pos].pos = end_pos
       self[start_pos] = NullPiece.instance
+    else
+      raise('Invalid move')
     end
   end
 
