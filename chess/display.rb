@@ -13,6 +13,7 @@ class Display
 
   def initialize(board,cursor_pos)
     @board = board
+    @board.place_pieces_default
     @cursor = Cursor.new(cursor_pos,board)
 
   end
@@ -42,4 +43,5 @@ class Display
 end
 
 load 'board.rb'
-d = Display.new(Board.new, [0,3])
+d = Display.new(Board.new, [0, 3])
+d.run

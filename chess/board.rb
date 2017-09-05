@@ -11,10 +11,9 @@ class Board
 
   def initialize
     @grid = Array.new(8) { Array.new(8) { NullPiece.instance } }
-    place_pieces
   end
 
-  def place_pieces
+  def place_pieces_default
     8.times do |i|
       @grid[1][i] = Pawn.new([1, i], 'white', self)
       @grid[6][i] = Pawn.new([6, i], 'black', self)
@@ -42,6 +41,16 @@ class Board
 
   end
 
+  def dup
+    dupped_board = Board.new
+    @grid.each_with_index do |row, row_index|
+      row.each_with_index do |piece, col_index|
+        dupped_board[[row_index, col_index]] = piece.dup unless piece.empty?
+      end
+    end
+    dupped_board
+  end
+
   def [](pos)
     x, y = pos
     @grid[x][y]
@@ -65,7 +74,7 @@ class Board
         king_pos[1] = col
         break if piece.to_s == 'King' && piece.color == color
       end
-  
+
       break if self[king_pos].to_s == 'King'
     end
 
