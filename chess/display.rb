@@ -27,7 +27,6 @@ class Display
 
   def render
     color = :green
-    # debugger
     moves = @board[@cursor.cursor_pos].moves
     8.times do |row|
       8.times do |col|
