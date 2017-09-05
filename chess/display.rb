@@ -40,7 +40,3 @@ class Display
     end
   end
 end
-
-load 'board.rb'
-d = Display.new(Board.new, [0, 3])
-d.run
