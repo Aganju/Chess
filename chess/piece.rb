@@ -11,6 +11,10 @@ class Piece
     false
   end
 
+  def inspect
+    { type: self.to_s, pos: @pos, color: @color }.inspect
+  end
+
   def valid_moves
     self.moves.reject do |move|
       test_board = @board.dup
