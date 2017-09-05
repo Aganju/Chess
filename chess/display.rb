@@ -11,11 +11,10 @@ PIECE_CHAR = {
 }
 class Display
 
-  def initialize(board,cursor_pos)
+  def initialize(board, cursor_pos)
     @board = board
     @board.place_pieces_default
-    @cursor = Cursor.new(cursor_pos,board)
-
+    @cursor = Cursor.new(cursor_pos, board)
   end
 
   def run
@@ -33,7 +32,7 @@ class Display
     8.times do |row|
       8.times do |col|
         color = :light_red if moves.include?([row, col])
-        color = :red if @cursor.cursor_pos == [row,col]
+        color = :red if @cursor.cursor_pos == [row, col]
         print PIECE_CHAR[@board[[row, col]].to_s].colorize(color)
         color = :green
       end

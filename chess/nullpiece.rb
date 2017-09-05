@@ -10,7 +10,6 @@ class NullPiece < Piece
     true
   end
 
-
   def to_s
     "space"
   end
